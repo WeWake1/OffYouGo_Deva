@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================================
+ *  Base — the night sky
+ * ======================================================================== */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-ink text-paper/90 font-body antialiased;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: theme('colors.ember.500' / 35%);
+    color: theme('colors.paper.DEFAULT');
+  }
+
+  /* Warm, quiet focus ring for keyboard users. */
+  :focus-visible {
+    outline: 2px solid theme('colors.ember.400');
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Subtle scrollbar that doesn't break the mood (WebKit). */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: theme('colors.ink.deep');
+  }
+  ::-webkit-scrollbar-thumb {
+    background: theme('colors.night.600');
+    border-radius: 9999px;
+    border: 2px solid theme('colors.ink.deep');
+  }
+}
+
+/* ===========================================================================
+ *  Components — reusable atmosphere + the sky lantern
+ * ======================================================================== */
+@layer components {
+  /* The layered gradient "mesh" behind everything: cool indigo night up top,
+     a warm ember glow rising from the horizon — complementary warm/cool, the
+     opposite of the flat purple-on-white cliché. */
+  .sky-gradient {
+    background:
+      radial-gradient(125% 85% at 50% 118%, rgba(239, 143, 60, 0.22), transparent 58%),
+      radial-gradient(85% 55% at 82% 8%, rgba(38, 42, 84, 0.55), transparent 60%),
+      radial-gradient(80% 55% at 12% 14%, rgba(26, 28, 60, 0.6), transparent 58%),
+      linear-gradient(180deg, #05040c 0%, #0a0a1a 34%, #101129 68%, #15102b 100%);
+  }
+
+  /* Film grain — a single inline SVG turbulence, fixed and non-interactive. */
+  .grain::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Radial vignette to focus the eye toward the center. */
+  .vignette::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(3, 2, 8, 0.55) 100%);
+  }
+
+  /* ---- The sky lantern (used in the hero, the background drift, and notes) -- */
+  .lantern {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    will-change: transform;
+  }
+  .lantern__body {
+    position: absolute;
+    inset: 0;
+    border-radius: 46% 46% 40% 40% / 56% 56% 44% 44%;
+    background:
+      radial-gradient(
+        58% 46% at 50% 82%,
+        rgba(255, 244, 214, 0.98),
+        rgba(255, 190, 110, 0.92) 42%,
+        rgba(240, 150, 66, 0.78) 70%,
+        rgba(196, 88, 40, 0.6) 100%
+      );
+    border: 1px solid rgba(255, 214, 158, 0.5);
+    box-shadow:
+      0 0 36px -6px rgba(247, 171, 77, 0.55),
+      0 0 80px -16px rgba(255, 122, 60, 0.4),
+      inset 0 -10px 26px -10px rgba(255, 236, 196, 0.7),
+      inset 0 12px 24px -12px rgba(120, 40, 10, 0.5);
+  }
+  /* Paper panel "ribs" for a hand-made feel. */
+  .lantern__body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(50% - 0.5px),
+      rgba(150, 60, 20, 0.18) calc(50% - 0.5px),
+      rgba(150, 60, 20, 0.18) calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    );
+    background-size: 33.33% 100%;
+    opacity: 0.7;
+  }
+  /* The little frame opening at the top. */
+  .lantern__cap {
+    position: absolute;
+    top: -6%;
+    left: 50%;
+    width: 30%;
+    height: 12%;
+    transform: translateX(-50%);
+    border-radius: 40% 40% 18% 18%;
+    background: linear-gradient(180deg, #d8a25a, #8a531f);
+    box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+  }
+  /* The flame at the bottom opening. */
+  .lantern__flame {
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    width: 12%;
+    height: 16%;
+    transform: translateX(-50%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: radial-gradient(circle at 50% 65%, #fffbe8, #ffd27a 45%, #ff8a3c 80%, transparent 100%);
+    filter: blur(0.4px);
+  }
+
+  /* ---- Boarding pass: the countdown rendered as a warm paper ticket ------ */
+  .ticket-paper {
+    background-image: radial-gradient(125% 140% at 0% 0%, #fbf4e3 0%, #f6ecd6 48%, #efe2c6 100%);
+  }
+  /* The stub — a touch deeper, like a torn-off corner of the same card. */
+  .ticket-edge {
+    background-image: radial-gradient(130% 150% at 100% 0%, #f1e6cb 0%, #e8dbbb 100%);
+  }
+  /* Faux barcode, built from a single repeating gradient. */
+  .ticket-barcode {
+    background-image: repeating-linear-gradient(
+      90deg,
+      #2a2118 0 2px,
+      transparent 2px 3px,
+      #2a2118 3px 6px,
+      transparent 6px 9px,
+      #2a2118 9px 10px,
+      transparent 10px 14px
+    );
+    opacity: 0.85;
+  }
+}
+
+/* ===========================================================================
+ *  Utilities
+ * ======================================================================== */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* Warm text glow for headline accents. */
+  .glow-text {
+    text-shadow: 0 0 24px rgba(247, 171, 77, 0.45), 0 0 2px rgba(255, 224, 173, 0.6);
+  }
+  /* Hide content visually but keep it for screen readers. */
+  .sr-only-custom {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* ===========================================================================
+ *  Global reduced-motion safety net — calm everything that moves, but never
+ *  hide content. Components also branch on this preference in JS.
+ * ======================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

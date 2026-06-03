@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Until you're back ✈</title>
+
+<!-- ============================================================= -->
+<!--  HOW TO CUSTOMISE THIS PAGE                                   -->
+<!--  Everything you need to change lives in the CONFIG object     -->
+<!--  near the BOTTOM of this file (search for "const CONFIG").    -->
+<!--  Put your photos in a folder next to this file and point to   -->
+<!--  them with paths like "photos/trip1.jpg".                     -->
+<!-- ============================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --night:    #0c1626;
+    --night-2:  #122339;
+    --ink:      #08101c;
+    --cream:    #f3e9d2;
+    --cream-dim:#cdbfa3;
+    --amber:    #e6a23c;
+    --coral:    #e07a5f;
+    --teal:     #6fb1a8;
+    --stamp-red:#c0473b;
+    --line:     rgba(243,233,210,.18);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:
+      radial-gradient(120% 80% at 80% -10%, #1a3050 0%, transparent 55%),
+      radial-gradient(100% 70% at 0% 0%, #16273f 0%, transparent 50%),
+      linear-gradient(180deg, var(--night) 0%, var(--ink) 100%);
+    color:var(--cream);
+    font-family:'Fraunces', Georgia, serif;
+    line-height:1.5;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+
+  /* film grain + stars overlay */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(243,233,210,.9), transparent),
+      radial-gradient(1px 1px at 70% 18%, rgba(243,233,210,.7), transparent),
+      radial-gradient(1px 1px at 40% 70%, rgba(243,233,210,.6), transparent),
+      radial-gradient(1.5px 1.5px at 85% 60%, rgba(230,162,60,.8), transparent),
+      radial-gradient(1px 1px at 12% 80%, rgba(243,233,210,.5), transparent),
+      radial-gradient(1px 1px at 55% 45%, rgba(243,233,210,.4), transparent);
+    opacity:.55; animation:twinkle 6s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle{ from{opacity:.35} to{opacity:.7} }
+
+  .mono{ font-family:'Space Mono', monospace; }
+
+  .wrap{ position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:0 22px; }
+
+  /* ---------- staggered load reveal ---------- */
+  .reveal{ opacity:0; transform:translateY(24px); animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards; }
+  @keyframes rise{ to{opacity:1; transform:none} }
+
+  /* ============ HERO / DEPARTURE BOARD ============ */
+  header{ padding:70px 0 30px; text-align:center; }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace; letter-spacing:.45em; text-transform:uppercase;
+    font-size:11px; color:var(--amber); margin-bottom:26px;
+  }
+  .eyebrow .dot{ display:inline-block; width:7px; height:7px; border-radius:50%;
+    background:var(--coral); margin-right:9px; box-shadow:0 0 10px var(--coral);
+    animation:blink 1.4s steps(1) infinite; vertical-align:middle; }
+  @keyframes blink{ 50%{opacity:.25} }
+
+  .route{
+    display:flex; align-items:center; justify-content:center; gap:18px;
+    margin:8px 0 4px; flex-wrap:wrap;
+  }
+  .code{
+    font-family:'Space Mono', monospace; font-weight:700;
+    font-size:clamp(46px, 12vw, 116px); line-height:.9;
+    background:linear-gradient(180deg,#fff 0%, var(--cream) 60%, var(--cream-dim) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .plane{ font-size:clamp(26px,6vw,46px); color:var(--amber);
+    animation:fly 3.4s ease-in-out infinite; }
+  @keyframes fly{ 0%,100%{transform:translateX(-6px)} 50%{transform:translateX(8px) translateY(-4px)} }
+
+  .cities{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.25em;
+    color:var(--cream-dim); text-transform:uppercase; margin-bottom:30px; }
+
+  .hero-line{
+    font-size:clamp(22px,4.2vw,34px); font-weight:400; font-style:italic;
+    max-width:620px; margin:0 auto; color:var(--cream);
+  }
+  .hero-sub{ margin-top:14px; color:var(--cream-dim); font-size:16px; }
+
+  /* ============ BOARDING PASS ============ */
+  .pass-section{ padding:46px 0 30px; }
+
+  .pass{
+    display:grid; grid-template-columns:1fr 230px; gap:0;
+    background:linear-gradient(135deg, #fbf4e3 0%, #f3e9d2 100%);
+    color:var(--ink); border-radius:16px; overflow:hidden;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.7), 0 0 0 1px rgba(0,0,0,.05);
+    position:relative;
+  }
+  .pass::after{ /* perforation */
+    content:""; position:absolute; top:0; bottom:0; right:230px; width:2px;
+    background:repeating-linear-gradient(180deg, var(--night) 0 8px, transparent 8px 18px);
+    opacity:.25;
+  }
+  .pass-main{ padding:30px 32px; }
+  .pass-stub{ padding:28px 22px; background:#ece1c6;
+    display:flex; flex-direction:column; justify-content:space-between; }
+
+  .pass-brand{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.3em;
+    text-transform:uppercase; color:var(--coral); }
+  .pass-name{ font-size:34px; font-weight:600; margin:4px 0 22px; line-height:1.05; }
+
+  .pass-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px 14px; }
+  .field .lbl{ font-family:'Space Mono',monospace; font-size:9.5px; letter-spacing:.18em;
+    text-transform:uppercase; color:#9a8c6e; }
+  .field .val{ font-family:'Space Mono',monospace; font-size:15px; font-weight:700; color:var(--ink); margin-top:3px; }
+
+  .barcode{ height:42px; margin-top:22px;
+    background:repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 3px,
+      var(--ink) 3px 6px, transparent 6px 9px, var(--ink) 9px 10px, transparent 10px 14px); opacity:.85; }
+
+  .stub-label{ font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.2em;
+    text-transform:uppercase; color:#9a8c6e; }
+  .stub-seat{ font-size:46px; font-weight:600; line-height:1; color:var(--ink); }
+
+  /* ============ COUNTDOWN ============ */
+  .count-section{ padding:30px 0 60px; text-align:center; }
+  .count-title{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.35em;
+    text-transform:uppercase; color:var(--amber); margin-bottom:26px; }
+  .clock{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
+  .unit{
+    background:linear-gradient(180deg, var(--night-2), #0b1729);
+    border:1px solid var(--line); border-radius:12px; padding:18px 8px; min-width:92px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 18px 30px -20px #000;
+  }
+  .unit .num{ font-family:'Space Mono',monospace; font-weight:700;
+    font-size:clamp(30px,7vw,46px); color:#fff;
+    text-shadow:0 0 18px rgba(230,162,60,.35); }
+  .unit .cap{ font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--cream-dim); margin-top:6px; }
+  .count-foot{ margin-top:22px; font-style:italic; color:var(--cream-dim); font-size:16px; }
+
+  /* ============ SECTION HEADERS ============ */
+  .sec-head{ text-align:center; margin:64px 0 34px; }
+  .sec-kicker{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.35em;
+    text-transform:uppercase; color:var(--coral); }
+  .sec-title{ font-size:clamp(30px,6vw,46px); font-weight:500; margin-top:8px; font-style:italic; }
+
+  /* ============ PASSPORT STAMPS / MEMORIES ============ */
+  .stamps{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:30px 24px; }
+  .stamp{
+    background:#fbf4e3; padding:14px 14px 18px; border-radius:4px; color:var(--ink);
+    box-shadow:0 24px 44px -22px rgba(0,0,0,.8); position:relative;
+    transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s;
+  }
+  .stamp:nth-child(odd){ transform:rotate(-2.2deg); }
+  .stamp:nth-child(even){ transform:rotate(1.8deg); }
+  .stamp:hover{ transform:rotate(0) translateY(-8px) scale(1.03);
+    box-shadow:0 36px 60px -22px rgba(0,0,0,.85); z-index:3; }
+  .stamp .photo{ aspect-ratio:4/5; border-radius:2px; overflow:hidden;
+    background:linear-gradient(135deg,#26415e,#13243a);
+    display:flex; align-items:center; justify-content:center; }
+  .stamp .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .stamp .photo .ph{ font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.15em;
+    color:rgba(243,233,210,.7); text-align:center; padding:10px; }
+  .stamp .place{ font-size:21px; font-weight:600; margin-top:12px; line-height:1.1; }
+  .stamp .when{ font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.12em;
+    color:#9a8c6e; text-transform:uppercase; margin-top:3px; }
+  .stamp .note{ font-size:14px; font-style:italic; color:#5a5340; margin-top:8px; }
+  .stamp .ink{ position:absolute; top:10px; right:10px; transform:rotate(12deg);
+    border:2px solid var(--stamp-red); color:var(--stamp-red);
+    font-family:'Space Mono',monospace; font-size:8px; letter-spacing:.1em;
+    padding:3px 6px; border-radius:4px; opacity:.7; text-transform:uppercase; }
+
+  /* ============ OPEN WHEN ============ */
+  .envs{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; }
+  .env{
+    background:linear-gradient(180deg, var(--night-2), #0c1a2c);
+    border:1px solid var(--line); border-radius:14px; padding:22px 20px;
+    cursor:pointer; transition:.35s; position:relative; overflow:hidden;
+  }
+  .env:hover{ border-color:var(--amber); transform:translateY(-4px); }
+  .env .seal{ font-size:22px; }
+  .env .when{ font-size:19px; font-weight:500; margin:10px 0 0; }
+  .env .msg{ max-height:0; opacity:0; overflow:hidden; transition:.45s ease;
+    font-style:italic; color:var(--cream-dim); font-size:15px; }
+  .env.open .msg{ max-height:300px; opacity:1; margin-top:12px; }
+  .env .hint{ font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--amber); margin-top:14px; }
+  .env.open .hint{ opacity:.4; }
+
+  /* ============ PLAYLIST ============ */
+  .playlist{ max-width:560px; margin:0 auto; border-radius:14px; overflow:hidden;
+    border:1px solid var(--line); box-shadow:0 30px 60px -30px #000; }
+  .playlist-fallback{ text-align:center; color:var(--cream-dim); font-style:italic; padding:14px; }
+
+  /* ============ LETTER ============ */
+  .letter{ max-width:620px; margin:0 auto; background:rgba(243,233,210,.04);
+    border:1px solid var(--line); border-radius:16px; padding:40px 36px; }
+  .letter p{ font-size:18px; margin-bottom:16px; }
+  .letter .sign{ font-style:italic; color:var(--amber); font-size:22px; margin-top:24px; }
+
+  footer{ text-align:center; padding:60px 0 50px; color:var(--cream-dim); }
+  footer .mono{ font-size:11px; letter-spacing:.2em; }
+
+  @media(max-width:620px){
+    .pass{ grid-template-columns:1fr; }
+    .pass::after{ display:none; }
+    .pass-stub{ flex-direction:row; align-items:center; }
+    .pass-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header>
+    <div class="eyebrow reveal"><span class="dot"></span><span id="boardStatus">Now boarding — gate open</span></div>
+    <div class="route reveal" style="animation-delay:.15s">
+      <span class="code" id="fromCode">BLR</span>
+      <span class="plane">✈</span>
+      <span class="code" id="toCode">TPE</span>
+    </div>
+    <div class="cities reveal" id="cities" style="animation-delay:.3s">Bengaluru → Taipei</div>
+    <h1 class="hero-line reveal" id="heroLine" style="animation-delay:.45s">Six months in Taiwan. One very long round trip.</h1>
+    <p class="hero-sub reveal" id="heroSub" style="animation-delay:.6s">A little send-off, built just for you.</p>
+  </header>
+
+  <!-- BOARDING PASS -->
+  <section class="pass-section">
+    <div class="pass reveal" style="animation-delay:.2s">
+      <div class="pass-main">
+        <div class="pass-brand">★ Boarding Pass — Research Expedition</div>
+        <div class="pass-name" id="passName">Passenger Name</div>
+        <div class="pass-grid">
+          <div class="field"><div class="lbl">From</div><div class="val" id="pFrom">BLR · Bengaluru</div></div>
+          <div class="field"><div class="lbl">To</div><div class="val" id="pTo">TPE · Taipei</div></div>
+          <div class="field"><div class="lbl">Flight</div><div class="val" id="pFlight">RSRCH-06</div></div>
+          <div class="field"><div class="lbl">Date</div><div class="val" id="pDate">30 MAY</div></div>
+          <div class="field"><div class="lbl">Boarding</div><div class="val" id="pBoard">22:00</div></div>
+          <div class="field"><div class="lbl">Return</div><div class="val" id="pReturn">~30 NOV</div></div>
+        </div>
+        <div class="barcode"></div>
+      </div>
+      <div class="pass-stub">
+        <div>
+          <div class="stub-label">Seat</div>
+          <div class="stub-seat" id="pSeat">1A</div>
+        </div>
+        <div>
+          <div class="stub-label">Status</div>
+          <div class="val mono" style="font-size:13px" id="pStatus">MISSED ALREADY</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="count-section">
+    <div class="count-title reveal">Back in Bengaluru in</div>
+    <div class="clock reveal" style="animation-delay:.1s">
+      <div class="unit"><div class="num" id="dd">000</div><div class="cap">Days</div></div>
+      <div class="unit"><div class="num" id="hh">00</div><div class="cap">Hours</div></div>
+      <div class="unit"><div class="num" id="mm">00</div><div class="cap">Min</div></div>
+      <div class="unit"><div class="num" id="ss">00</div><div class="cap">Sec</div></div>
+    </div>
+    <div class="count-foot" id="countFoot">…and counting.</div>
+  </section>
+
+  <!-- MEMORIES -->
+  <div class="sec-head">
+    <div class="sec-kicker">Stamps in the passport</div>
+    <h2 class="sec-title">Places we already went</h2>
+  </div>
+  <section class="stamps" id="stamps"></section>
+
+  <!-- OPEN WHEN -->
+  <div class="sec-head">
+    <div class="sec-kicker">For the days far from home</div>
+    <h2 class="sec-title">Open when…</h2>
+  </div>
+  <section class="envs" id="envs"></section>
+
+  <!-- PLAYLIST -->
+  <div class="sec-head" id="playlistHead">
+    <div class="sec-kicker">For the long flight</div>
+    <h2 class="sec-title">Songs to fly to</h2>
+  </div>
+  <section style="padding-bottom:10px">
+    <div class="playlist" id="playlist"></div>
+  </section>
+
+  <!-- LETTER -->
+  <div class="sec-head">
+    <div class="sec-kicker">One last thing</div>
+    <h2 class="sec-title">Before you go</h2>
+  </div>
+  <section>
+    <div class="letter reveal" id="letter"></div>
+  </section>
+
+  <footer>
+    <div class="mono" id="footMono">FRIENDSHIP.MODEL · STATUS: TRAINING (PAUSED 000 DAYS)</div>
+    <p style="margin-top:10px; font-style:italic;">Go do something brilliant. We'll keep the seat warm.</p>
+  </footer>
+
+</div>
+
+<script>
+/* ================================================================== */
+/*  ⬇⬇⬇  EDIT EVERYTHING BELOW — this is the only part you touch  ⬇⬇⬇ */
+/* ================================================================== */
+const CONFIG = {
+  // --- the basics ---
+  herName:     "Her Name",          // appears on the boarding pass
+  fromCity:    "Bengaluru",
+  toCity:      "Taipei",            // change if her city is different (Hsinchu? Tainan?)
+  fromCode:    "BLR",
+  toCode:      "TPE",
+  departDate:  "2026-05-30T22:00:00+05:30",  // tomorrow, 10 PM
+  returnDate:  "2026-11-30T20:00:00+08:00",  // <-- CHANGE to her real return date/time
+
+  // --- hero text (say it however you'd say it) ---
+  heroLine:    "Six months in Taiwan. One very long round trip.",
+  heroSub:     "A little send-off, built just for you.",
+
+  // --- boarding-pass fun fields (keep them playful) ---
+  flightCode:  "RSRCH-06",   // 6 = six months / sixth sem, whatever you like
+  seat:        "1A",
+  passStatus:  "MISSED ALREADY",
+
+  // --- MEMORIES: one card per trip/outing. Add your photos to a ---
+  // --- "photos" folder and put the filename in `img`. Leave img: "" ---
+  // --- for now and it shows a nice placeholder.                    ---
+  memories: [
+    { place:"Trip One",   when:"That weekend",   note:"the inside joke that started here", img:"", stamp:"VISITED" },
+    { place:"Trip Two",   when:"Last sem",       note:"remember this one?",                 img:"", stamp:"ENTRY" },
+    { place:"Trip Three", when:"That night out", note:"we said we'd never tell anyone",     img:"", stamp:"VISA" },
+    { place:"Add more →", when:"…",              note:"copy a line above for each memory",  img:"", stamp:"" },
+  ],
+
+  // --- OPEN WHEN notes: click to reveal. Add/remove freely. ---
+  openWhen: [
+    { when:"…you're homesick",        msg:"Write the thing you'd say to her at 2am here." },
+    { when:"…you ace something",      msg:"Knew you would. Go celebrate, then call me." },
+    { when:"…you miss home food",     msg:"List the exact dish and the exact place. Promise it's waiting." },
+    { when:"…you can't sleep",        msg:"A calm, kind note. Maybe a memory that makes her smile." },
+    { when:"…it all feels too hard",  msg:"Remind her why she's there and that she's already enough." },
+    { when:"…you just miss home",     msg:"The softest one. Whatever you'd actually want her to hear." },
+  ],
+
+  // --- PLAYLIST: paste a Spotify/YouTube *embed* link, or leave "" ---
+  // Spotify: open playlist → Share → Embed playlist → copy the src URL
+  // e.g. "https://open.spotify.com/embed/playlist/XXXXXXXX"
+  playlistEmbed: "",
+
+  // --- THE LETTER: this is the heart of it. Each string = one paragraph. ---
+  letter: [
+    "I'm not great at this out loud, so I built it instead.",
+    "Taiwan is lucky to get you for six months. The lab, the late nights, the new city — you're going to be so good at all of it.",
+    "Don't shrink yourself to fit in. Take up space, ask the dumb questions, eat the weird food, get lost on purpose at least once.",
+    "And whenever it gets quiet or hard: this page isn't going anywhere, and neither am I.",
+  ],
+  signOff: "— Your Name",
+};
+/* ================================================================== */
+/*  ⬆⬆⬆  STOP EDITING HERE. The code below renders the page.  ⬆⬆⬆     */
+/* ================================================================== */
+
+const $ = id => document.getElementById(id);
+
+// hero + pass
+$("fromCode").textContent = CONFIG.fromCode;
+$("toCode").textContent   = CONFIG.toCode;
+$("cities").textContent   = CONFIG.fromCity + " → " + CONFIG.toCity;
+$("heroLine").textContent = CONFIG.heroLine;
+$("heroSub").textContent  = CONFIG.heroSub;
+$("passName").textContent = CONFIG.herName;
+$("pFrom").textContent    = CONFIG.fromCode + " · " + CONFIG.fromCity;
+$("pTo").textContent      = CONFIG.toCode + " · " + CONFIG.toCity;
+$("pFlight").textContent  = CONFIG.flightCode;
+$("pSeat").textContent    = CONFIG.seat;
+$("pStatus").textContent  = CONFIG.passStatus;
+
+const fmt = (iso) => {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'}).toUpperCase();
+};
+const fmtTime = (iso) => new Date(iso).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+$("pDate").textContent   = fmt(CONFIG.departDate);
+$("pBoard").textContent  = fmtTime(CONFIG.departDate);
+$("pReturn").textContent = "~" + fmt(CONFIG.returnDate);
+
+// memories
+$("stamps").innerHTML = CONFIG.memories.map(m => `
+  <article class="stamp">
+    ${m.stamp ? `<div class="ink">${m.stamp}</div>` : ""}
+    <div class="photo">${ m.img ? `<img src="${m.img}" alt="${m.place}">` : `<div class="ph">drop a photo here<br>img: "photos/...jpg"</div>` }</div>
+    <div class="place">${m.place}</div>
+    <div class="when">${m.when}</div>
+    ${m.note ? `<div class="note">${m.note}</div>` : ""}
+  </article>`).join("");
+
+// open-when
+$("envs").innerHTML = CONFIG.openWhen.map(e => `
+  <div class="env">
+    <div class="seal">✉</div>
+    <div class="when">Open when ${e.when.replace(/^…/,'')}</div>
+    <div class="msg">${e.msg}</div>
+    <div class="hint">tap to open</div>
+  </div>`).join("");
+document.querySelectorAll(".env").forEach(el =>
+  el.addEventListener("click", () => el.classList.toggle("open")));
+
+// playlist
+if (CONFIG.playlistEmbed){
+  $("playlist").innerHTML =
+    `<iframe style="border-radius:12px" src="${CONFIG.playlistEmbed}" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+} else {
+  $("playlistHead").style.display = "none";
+  $("playlist").style.display = "none";
+}
+
+// letter
+$("letter").innerHTML = CONFIG.letter.map(p => `<p>${p}</p>`).join("")
+  + `<div class="sign">${CONFIG.signOff}</div>`;
+
+// countdown
+const target = new Date(CONFIG.returnDate).getTime();
+function tick(){
+  const diff = target - Date.now();
+  if (diff <= 0){
+    $("dd").textContent="000"; $("hh").textContent="00"; $("mm").textContent="00"; $("ss").textContent="00";
+    $("countFoot").textContent = "She's home. 🎉";
+    $("boardStatus").textContent = "Welcome back";
+    return;
+  }
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor(diff%86400000/3600000);
+  const m = Math.floor(diff%3600000/60000);
+  const s = Math.floor(diff%60000/1000);
+  $("dd").textContent = String(d).padStart(3,'0');
+  $("hh").textContent = String(h).padStart(2,'0');
+  $("mm").textContent = String(m).padStart(2,'0');
+  $("ss").textContent = String(s).padStart(2,'0');
+  $("footMono").textContent = `FRIENDSHIP.MODEL · STATUS: TRAINING (PAUSED ${String(d).padStart(3,'0')} DAYS)`;
+}
+tick(); setInterval(tick,1000);
+
+// little dev easter egg in the console
+console.log("%c✈ built with way too much care. swap the CONFIG and ship it.","color:#e6a23c;font-size:14px;");
+</script>
+</body>
+</html>
