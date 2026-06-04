@@ -199,8 +199,8 @@ export const content: SiteContent = {
   // ─── The two moments ─────────────────────────────────────────────────────
   // Departure: tomorrow night ~22:00 IST from BLR. Adjust if the time differs.
   departureISO: '2026-05-30T12:00:00+05:30', // 12:00 PM IST from BLR
-  // Return: ~6 months out. THIS drives the whole countdown — set the real date.
-  returnISO: '2026-11-30T22:00:00+05:30', // TODO: set her real return date
+  // Return: she's back in Bengaluru on 18 Nov 2026. THIS drives the whole countdown.
+  returnISO: '2026-11-18T22:00:00+05:30', // back here on 18 Nov (time-of-day a guess — tweak if you know it)
 
   // ─── Hero ────────────────────────────────────────────────────────────────
   hero: {
@@ -247,7 +247,7 @@ export const content: SiteContent = {
   //        caption: 'the sunrise we drove all night for', alt: '…' }.
   memories: {
     title: 'everything we already shared',
-    intro: 'A year of small trips, strung up like lanterns. Tap a photo to bring it close.',
+    intro: 'All the fun times we have had together! Strung up like little lanterns.',
     // 35 photos, spread across the drifting string-lights and wrapping onto rows.
     items: Array.from({ length: 35 }, (_, i) => ({
       src: `/photos/photo-${String(i + 1).padStart(2, '0')}.jpg`,
@@ -270,7 +270,7 @@ export const content: SiteContent = {
   timeApart: {
     title: 'the days, one by one',
     intro:
-      'A dot for every day you’re away — they light up as they pass, and today glows. The rings below fill the whole trip, the month, the week and the day, in real time.',
+      'A dot for every day you’re away — they light up as they pass, and today glows. The rings below fill the whole trip, the month, the week and the day.',
     gridLabel: 'time apart',
   },
 
@@ -281,12 +281,12 @@ export const content: SiteContent = {
     title: 'open when…',
     intro: 'Little lanterns for specific nights. Tap one to light it.',
     notes: [
-      { label: "open when you're homesick", message: '[[write the homesick note here]]' },
-      { label: 'open when you ace something', message: '[[write the proud-of-you note here]]' },
-      { label: 'open when you miss home food', message: '[[write the comfort-food note here]]' },
-      { label: "open when you can't sleep", message: '[[write the 3am note here]]' },
-      { label: 'open when you doubt yourself', message: '[[write the pep-talk note here]]' },
-      { label: "open when you're happy", message: '[[write the celebrate-with-me note here]]' },
+      { label: "open when you're homesick", message: 'I doubt that you will be missing home but if you ever do, you can just scroll up and see how many days are left lol!' },
+      { label: 'open when you ace something', message: 'Yayy!!! No Deva doubters ever!! You always ace shi!!' },
+      { label: 'open when you miss home food', message: 'Nahhh you wont miss ghar food, youll be too busy enjoying the local cuisine!' },
+      { label: "open when you can't sleep", message: '1 sheep... 2 sheep... 3 sheep... lol jk just think of all the fun time you have had but firstly throw that damn phone away' },
+      { label: 'open when you doubt yourself', message: 'If you ever doubt yourself, remember all the times priyo doubted you and you proved him wrong!! And if you can prove that dhum dhum wrong then you can prove yourself!!' },
+      { label: "open when you're happy", message: 'Just sit down and take in the moment and try to capture it!' },
     ],
   },
 
@@ -322,7 +322,7 @@ export const content: SiteContent = {
       `Especially the last year has been fucking crazy!! and I fucking mean it. Honestly the first two years here didn't feel like I was doing engineering at all, I was in god knows which world and was never doing the things I like but this past year has been FUCKING AMAZINGLY CRAZYY!!!`,
       `We started with a simple nexovate wala hackathon and mann has the journey been crazy!! Win after win, just like how they show in movies, where the protagonist is winning fights after fights lol!!`,
       `All the hackathons we did together, all the group outings we went together, they all wouldn't be the same without you!! and I flipin mean it!!! Without you god knows who'd be there to keep me in track as every 2 mins I would go astray, wander off and get lost!`,
-      `I've never said this but YOU are the backbone of our friend circle, if it weren't for you I doubt we would have registered for so many hackathongs, if it weren't for you I doubt we would have gone for so many outings, your willingness to always do things no matter what is fucking amazing!! and that's the only part of you of which I'm envious (unlike priyo who is envious of everything, even the fact that you're in Taiwan rn, I bet you he's like "I wish it would have been me lmao) lol cuz sometimes I want to do stuff but I back down looking at the path but instead you just jump right into it and get started and best part you Don't Stop till you Finish it!! And I have huge respect for that!! (cuz remember once I told you that you're a very strong independent girl? yea I really meant that!! I honestly at times I look at you and inspire myself)`,
+      `I've never said this but YOU are the backbone of our friend circle, if it weren't for you I doubt we would have registered for so many hackathongs, if it weren't for you I doubt we would have gone for so many outings, your willingness to always do things no matter what is fucking amazing!! and that's the only part of you of which I'm envious (unlike priyo who is envious of everything, even the fact that you're in Taiwan rn, I bet you he's like "I wish it would have been me lmao) lol cuz sometimes I want to do stuff but I back down looking at the path but instead you just jump right into it and get started and best part you Don't Stop till you Finish it!! And I have huge respect for that!! (cuz remember once I told you that you're a very strong independent girl? yea I really meant that!! honestly at times I look at you and inspire myself)`,
       `And recently the time we spent together is some of the best I've ever spent with a human.`,
       `All the times we went for a quick fun drink and sat up the hill or under that tree lol. They have all been soo fuckin awesome cuz we just sit and chill no judging nothing just chill and I cherish it all and I hope you do too!!`,
       `All I would like to say in the end is, You are an Amazing fukcing human and you deserve all you have right and much more!!`,
