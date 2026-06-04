@@ -5,6 +5,7 @@ import { fill, isPlaceholder } from '../lib/text';
 import { cn } from '../lib/cn';
 import { useReducedMotion } from '../lib/useReducedMotion';
 import { useMarquee } from '../lib/useMarquee';
+import { asset } from '../lib/asset';
 import { Reveal } from './Reveal';
 import { Lightbox } from './Lightbox';
 
@@ -86,7 +87,7 @@ function Photo({ memory, index, onOpen }: { memory: Memory; index: number; onOpe
         {hasPhoto ? (
           <div className="relative aspect-square overflow-hidden rounded-[2px] bg-night-900">
             <img
-              src={wallThumb(memory.src)}
+              src={asset(wallThumb(memory.src))}
               alt={isPlaceholder(memory.alt) ? '' : memory.alt}
               loading="lazy"
               decoding="async"
@@ -95,7 +96,7 @@ function Photo({ memory, index, onOpen }: { memory: Memory; index: number; onOpe
                 // thumb-NN.jpg), fall back to the full image so it never breaks.
                 const el = e.currentTarget;
                 el.onerror = null;
-                el.src = memory.src;
+                el.src = asset(memory.src);
               }}
               className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
             />

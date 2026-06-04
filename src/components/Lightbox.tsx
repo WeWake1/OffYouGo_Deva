@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import type { Memory } from '../config/content';
 import { fill, isPlaceholder } from '../lib/text';
 import content from '../config/content';
+import { asset } from '../lib/asset';
 
 interface LightboxProps {
   /** The photo to show, or null when closed. */
@@ -83,7 +84,7 @@ export function Lightbox({ photo, onClose }: LightboxProps) {
           className="flex max-h-full max-w-5xl flex-col items-center"
         >
           <img
-            src={photo.src}
+            src={asset(photo.src)}
             alt={isPlaceholder(photo.alt) ? '' : photo.alt}
             className="max-h-[78vh] w-auto max-w-full rounded-md object-contain shadow-[0_30px_80px_-20px_rgba(0,0,0,0.9)]"
           />
