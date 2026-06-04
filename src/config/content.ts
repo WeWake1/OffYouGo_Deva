@@ -157,6 +157,28 @@ export interface SiteContent {
     signature: string;
     /** Optional P.S. line. Set to "" to hide. */
     ps: string;
+    /**
+     * The secret "flip side" of the letter — revealed only when the open letter
+     * is in full screen and you swipe it left (a click ‹›/arrow-key fallback is
+     * there too, for desktop + screen readers). Set `enabled: false` to hide it
+     * entirely. The photo is dropped in the middle, between the two paragraph
+     * blocks, so write the lead-up in `paragraphsBefore` and the pay-off in
+     * `paragraphsAfter`.
+     */
+    hidden: {
+      /** Master switch — set false to remove the secret letter completely. */
+      enabled: boolean;
+      /** Everything said before the photo. Each item is its own paragraph. */
+      paragraphsBefore: string[];
+      /** Photo path under /public, e.g. "/photos/flower.jpg". "" => a "drop a photo here" slot. */
+      image: string;
+      /** Alt text for the photo (describe it for screen readers). */
+      imageAlt: string;
+      /** The little caption under the photo. Set "" to hide. */
+      imageCaption: string;
+      /** Everything said after the photo. The last line gets the big closing flourish. */
+      paragraphsAfter: string[];
+    };
   };
 
   /** The closing toy: an interactive pit of marbles to swirl your cursor through. */
@@ -331,6 +353,29 @@ export const content: SiteContent = {
     signoff: 'Always,',
     signature: '{you}',
     ps: `(by this time you must know that when ever I use the word "fucking" or "flipin" or something like that it means that it carries weight and whatever I say after that is meant 100% 100% lol).`,
+
+    // ─── The secret flip side ────────────────────────────────────────────────
+    // Hidden behind a swipe-left on the full-screen letter. Drop the flower photo
+    // into public/photos/ and set `image` to its path (e.g. "/photos/flower.jpg").
+    hidden: {
+      enabled: true,
+      paragraphsBefore: [
+        `WOW DEVAA YOU'RE SMART ENOUGH TO FIND THIS lol jk you just had to swipe left to flip it.`,
+        `Today is exactly the day (30th of May) last year, when I broke up! I was all done with shit and wanted to START OVER!! You know the whole thing.`,
+        `You know the part of the story that it was AIML exam and I went to her and Initiated the break up blah blah blahh....`,
+        `Something I've never told you is that, on that day I never ever planned to go and tell ask her to break up. That day when I woke, I woke up to a women crying right opposite of my room's window, I woke up and went to check cuz I had been hearing that women cry and scream for the past 2 hours even in my sleep. When I went to the window thats what I realized that someone had passed away in that house and thats the reason why she had been crying, shouting and screaming. It was very weird, on one hand One person might tell how is this all related, but I think the other wise cuz I think that it was a sign from the universe. Literally waking up while one did not and hearing the screams of their loved ones and all...`,
+        `And another crazy thing that happend that same morning was when I woke up and went to the balcony, I saw a flower in a pot. A flower plant which had not bloomed for literally a year!!! I am not joking as June 2024 I got my mom a flower plant on her birthday as a gift, and ever since it had NEVER bloomed but exactly on the day when I broke up, it bloomed with one of the most prettiest flower I had ever seen.`,
+        `idk but universe does throw a sign every now and then!!`,
+      ],
+      image: '/photos/flower.jpg', // the flower that bloomed that morning
+      imageAlt: 'The flower that bloomed that morning',
+      imageCaption: 'This is that flower!',
+      paragraphsAfter: [
+        `Basically my point is that this time last year the complete trajectory of my life changed and made me meet all you guys and all!!`,
+        `Similarly, On the same exact day this year, You are on the way to change your life forever!!!`,
+        `IT'S YOUR TURN NOW!!!`,
+      ],
+    },
   },
 
   // ─── Marbles (the closing toy) ─────────────────────────────────────────────
@@ -338,15 +383,15 @@ export const content: SiteContent = {
   // `count` is how many fill the pit; bump it up or down to taste.
   marbles: {
     title: 'one for the road',
-    intro: "Before you go — humour me. Here are all your marbles, every last one. Run your cursor through them, and let's keep them together.",
-    hint: 'drag your cursor through them — give them a swirl',
+    intro: "Before you go. Here are all your balls, every last one. Run your cursor/finger through them, and let's keep them together.",
+    hint: 'drag your cursor/finger through them — give them a swirl',
     count: 150,
   },
 
   // ─── Footer ──────────────────────────────────────────────────────────────
   footer: {
     sameSkyLine: 'same sky · different timezone · still counting',
-    madeWith: 'made with a lot of love by wewake',
+    madeWith: 'made with a lot of love and one too many sleepless nights by wewake',
   },
 
   // ─── Console easter egg (for the fellow dev) ─────────────────────────────
